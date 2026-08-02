@@ -23,7 +23,7 @@ internal object OfflineModeListConstructorFingerprint : Fingerprint(
 internal object OfflineModeOptionConfigFingerprint : Fingerprint(
     returnType = "V",
     custom = { method, classDef ->
-        classDef.type == "LX/0seq;" &&
+        classDef.endsWith("/OfflineModeSheetPageAssem;") &&
             method.name == "<clinit>" &&
             method.parameterTypes.isEmpty()
     },
@@ -32,7 +32,7 @@ internal object OfflineModeOptionConfigFingerprint : Fingerprint(
 internal object OfflineModeOptionEnumFingerprint : Fingerprint(
     returnType = "V",
     custom = { method, classDef ->
-        classDef.type == "LX/0sek;" &&
+        classDef.endsWith("/OfflineModeSheetPageAssem;") &&
             method.name == "<clinit>" &&
             method.parameterTypes.isEmpty()
     },
