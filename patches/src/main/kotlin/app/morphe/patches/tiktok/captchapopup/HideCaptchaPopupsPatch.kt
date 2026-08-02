@@ -21,7 +21,7 @@ private object CaptchaPopupFingerprint : Fingerprint(
     parameters = listOf(
         "Landroid/app/Activity;",
         "Ljava/lang/String;",
-        "LX/10Dr;",
+        "LX/12bE;",
         "Landroidx/fragment/app/Fragment;",
     ),
     strings = listOf("popCaptchaV2 - riskInfo ="),
@@ -31,15 +31,16 @@ private object LegacyCaptchaPopupFingerprint : Fingerprint(
     definingClass = "/sec/SecApiImpl;",
     name = "popCaptcha",
     returnType = "V",
-    parameters = listOf("Landroid/app/Activity;", "I", "LX/10Dr;"),
+    parameters = listOf("Landroid/app/Activity;", "I", "LX/12bE;"),
     strings = listOf("popCaptcha - errorcode = "),
 )
 
 private object OecCaptchaPopupFingerprint : Fingerprint(
-    definingClass = "Lcom/tts/oecverify/verify/RiskControlService;",
-    name = "execute",
     returnType = "Z",
     parameters = listOf("LX/10FW;", "Lcom/tts/oecverify/BdTuringCallback;"),
+    custom = { method, classDef ->
+        classDef.type == "LX/12xS;" || classDef.endsWith("/RiskControlService;")
+    },
 )
 
 private object LiveHostCaptchaPopupFingerprint : Fingerprint(
@@ -69,14 +70,14 @@ val hideCaptchaPopupsPatch = bytecodePatch(
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enableCaptchaPopupSuppression()V",
         )
 
-        CaptchaPopupFingerprint.method.addInstructions(
+        CaptchaPopupFingerprint.methodOrNull?.addInstructions(
             0,
             """
                 invoke-static {}, $FEATURE_CONTROLS_CLASS_DESCRIPTOR->shouldHideCaptchaPopup()Z
                 move-result v0
                 if-eqz v0, :morphe_show_captcha_popup
                 if-eqz p3, :morphe_hide_captcha_popup_return
-                invoke-virtual {p3}, LX/10Dr;->LIZJ()V
+                invoke-virtual {p3}, LX/12bE;->LIZJ()V
                 :morphe_hide_captcha_popup_return
                 return-void
                 :morphe_show_captcha_popup
@@ -84,14 +85,14 @@ val hideCaptchaPopupsPatch = bytecodePatch(
             """,
         )
 
-        LegacyCaptchaPopupFingerprint.method.addInstructions(
+        LegacyCaptchaPopupFingerprint.methodOrNull?.addInstructions(
             0,
             """
                 invoke-static {}, $FEATURE_CONTROLS_CLASS_DESCRIPTOR->shouldHideCaptchaPopup()Z
                 move-result v0
                 if-eqz v0, :morphe_show_legacy_captcha_popup
                 if-eqz p3, :morphe_hide_legacy_captcha_popup_return
-                invoke-virtual {p3}, LX/10Dr;->LIZJ()V
+                invoke-virtual {p3}, LX/12bE;->LIZJ()V
                 :morphe_hide_legacy_captcha_popup_return
                 return-void
                 :morphe_show_legacy_captcha_popup
@@ -99,7 +100,7 @@ val hideCaptchaPopupsPatch = bytecodePatch(
             """,
         )
 
-        OecCaptchaPopupFingerprint.method.addInstructions(
+        OecCaptchaPopupFingerprint.methodOrNull?.addInstructions(
             0,
             """
                 invoke-static {}, $FEATURE_CONTROLS_CLASS_DESCRIPTOR->shouldHideCaptchaPopup()Z
@@ -116,7 +117,7 @@ val hideCaptchaPopupsPatch = bytecodePatch(
             """,
         )
 
-        LiveHostCaptchaPopupFingerprint.method.addInstructions(
+        LiveHostCaptchaPopupFingerprint.methodOrNull?.addInstructions(
             0,
             """
                 invoke-static {}, $FEATURE_CONTROLS_CLASS_DESCRIPTOR->shouldHideCaptchaPopup()Z

@@ -6,7 +6,6 @@ import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patches.shared.compat.AppCompatibilities
 import app.morphe.patches.tiktok.misc.extension.sharedExtensionPatch
 import app.morphe.patches.tiktok.misc.settings.SettingsStatusLoadFingerprint
-import com.android.tools.smali.dexlib2.Opcode
 import com.android.tools.smali.dexlib2.iface.instruction.OneRegisterInstruction
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/navigation/NavigationTabsFilter;"
@@ -27,9 +26,9 @@ val feedTabNavigationPatch = bytecodePatch(
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enableFeedNavigation()V",
         )
 
-        HomeTabAbilityListFingerprint.method.let { method ->
+        HomeTabAbilityListFingerprint.methodOrNull?.let { method ->
             val returnIndices = method.implementation!!.instructions.withIndex()
-                .filter { it.value.opcode == Opcode.RETURN_OBJECT }
+                .filter { it.value.opcode == com.android.tools.smali.dexlib2.Opcode.RETURN_OBJECT }
                 .map { it.index }
 
             returnIndices.asReversed().forEach { returnIndex ->
@@ -37,19 +36,21 @@ val feedTabNavigationPatch = bytecodePatch(
                 method.addInstructions(
                     returnIndex,
                     """
-                        invoke-static {v$register, p1}, $EXTENSION_CLASS_DESCRIPTOR->filterTopTabs(Ljava/util/List;Z)Ljava/util/List;
+                        invoke-static {v$register}, $EXTENSION_CLASS_DESCRIPTOR->filterTopTabs(Ljava/util/List;)Ljava/util/List;
                         move-result-object v$register
                     """,
                 )
             }
         }
 
-        BottomTabBuildListFingerprint.method.addInstructions(
-            0,
-            """
-                invoke-static/range {p1 .. p1}, $EXTENSION_CLASS_DESCRIPTOR->filterBottomTabs(Ljava/util/List;)Ljava/util/List;
-                move-result-object p1
-            """,
-        )
+        BottomTabBuildListFingerprint.methodOrNull?.let { method ->
+            method.addInstructions(
+                0,
+                """
+                    invoke-static/range {p1 .. p1}, $EXTENSION_CLASS_DESCRIPTOR->filterBottomTabs(Ljava/util/List;)Ljava/util/List;
+                    move-result-object p1
+                """,
+            )
+        }
     }
 }

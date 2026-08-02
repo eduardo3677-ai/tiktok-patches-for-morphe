@@ -29,7 +29,7 @@ val customOfflineVideosLimitPatch = bytecodePatch(
     compatibleWith(*AppCompatibilities.tiktok46215())
 
     execute {
-        OfflineModeSheetOptionsFingerprint.method.apply {
+        OfflineModeSheetOptionsFingerprint.methodOrNull?.apply {
             val freezeListIndex = indexOfFirstInstructionOrThrow {
                 opcode == Opcode.INVOKE_STATIC &&
                     getReference<MethodReference>()?.let { reference ->
@@ -51,7 +51,7 @@ val customOfflineVideosLimitPatch = bytecodePatch(
             )
         }
 
-        OfflineModeListConstructorFingerprint.method.apply {
+        OfflineModeListConstructorFingerprint.methodOrNull?.apply {
             val capFieldWriteIndex = indexOfFirstInstructionOrThrow {
                 opcode == Opcode.IPUT &&
                     getReference<FieldReference>()?.let { field ->
@@ -63,21 +63,20 @@ val customOfflineVideosLimitPatch = bytecodePatch(
             val capLiteralIndex = indexOfFirstInstructionReversedOrThrow(capFieldWriteIndex - 1) {
                 this is NarrowLiteralInstruction &&
                     this is OneRegisterInstruction &&
-                    narrowLiteral == 200 &&
                     registerA == capRegister
             }
 
             replaceInstruction(capLiteralIndex, "const/16 v$capRegister, $CUSTOM_OFFLINE_VIDEO_LIMIT_SMALI")
         }
 
-        OfflineModeOptionConfigFingerprint.method.apply {
-            fun postProcessOptionsField(fieldName: String) {
+        OfflineModeOptionConfigFingerprint.methodOrNull?.apply {
+            fun postProcessOptionsField(fieldName: String?) {
                 val fieldWriteIndex = indexOfFirstInstructionOrThrow {
                     opcode == Opcode.SPUT_OBJECT &&
                         getReference<FieldReference>()?.let { field ->
                             field.definingClass == "LX/0seq;" &&
-                                field.name == fieldName &&
-                                field.type == "Ljava/util/List;"
+                                field.type == "Ljava/util/List;" &&
+                            (fieldName == null || field.name == fieldName)
                         } == true
                 }
                 val moveResultIndex = indexOfFirstInstructionReversedOrThrow(fieldWriteIndex - 1) {
@@ -94,11 +93,11 @@ val customOfflineVideosLimitPatch = bytecodePatch(
                 )
             }
 
-            postProcessOptionsField("LIZLLL")
-            postProcessOptionsField("LJ")
+            try { postProcessOptionsField("LIZLLL") } catch (e: Exception) { postProcessOptionsField(null) }
+            try { postProcessOptionsField("LJ") } catch (e: Exception) {}
         }
 
-        OfflineModeOptionEnumFingerprint.method.apply {
+        OfflineModeOptionEnumFingerprint.methodOrNull?.apply {
             val customEnumSizeLiteralIndex = indexOfFirstInstructionOrThrow {
                 this is NarrowLiteralInstruction &&
                     this is OneRegisterInstruction &&

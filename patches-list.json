@@ -1,5 +1,5 @@
 {
-  "version": "0.4.1",
+  "version": "v0.4.1",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
@@ -13,7 +13,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -24,7 +24,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -41,7 +41,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -52,7 +52,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -67,7 +67,7 @@
       "dependencies": [],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -78,7 +78,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -93,7 +93,7 @@
       "dependencies": [],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -104,7 +104,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -121,7 +121,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -132,7 +132,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -149,7 +149,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -160,7 +160,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -170,14 +170,14 @@
     },
     {
       "name": "Enable Open Debug",
-      "description": "Uses TikTok's hidden Open Debug settings cell as the entry point for Morphe settings. Required for the Morphe settings menu to appear. Supports TikTok 43.8.3.",
+      "description": "Uses TikTok's hidden Open Debug settings cell as the entry point for Morphe settings. Required for the Morphe settings menu to appear. Supports TikTok 46.2.15.",
       "use": true,
       "dependencies": [
         "BytecodePatch"
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -188,7 +188,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -206,7 +206,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -217,7 +217,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -234,7 +234,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -245,7 +245,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -262,7 +262,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -273,7 +273,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -288,7 +288,7 @@
       "dependencies": [],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -299,7 +299,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -316,7 +316,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -327,7 +327,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -344,7 +344,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -355,7 +355,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -372,7 +372,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -383,7 +383,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -400,7 +400,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -411,7 +411,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -428,7 +428,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -439,7 +439,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -454,7 +454,7 @@
       "dependencies": [],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -465,7 +465,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -483,7 +483,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -494,7 +494,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -511,7 +511,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -522,7 +522,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -539,7 +539,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -550,7 +550,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -567,7 +567,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -578,7 +578,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]
@@ -595,7 +595,7 @@
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
-          "43.8.3"
+          "46.2.15"
         ]
       },
       "compatibility": [
@@ -606,7 +606,7 @@
           "appIconColor": 16657493,
           "targets": [
             {
-              "version": "43.8.3",
+              "version": "46.2.15",
               "experimental": false
             }
           ]

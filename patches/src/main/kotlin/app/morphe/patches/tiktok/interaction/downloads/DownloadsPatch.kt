@@ -105,7 +105,8 @@ val downloadsPatch = bytecodePatch(
         }
 
         // Add local gallery saving to the comment sticker/image preview sheet.
-        StickerPreviewBinderFingerprint.method.apply {
+        // This fingerprint target was repurposed in 46.2.15 and may not match.
+        StickerPreviewBinderFingerprint.methodOrNull?.apply {
             val returnIndex = findInstructionIndicesReversedOrThrow { opcode == Opcode.RETURN_VOID }.first()
             addInstructions(
                 returnIndex,

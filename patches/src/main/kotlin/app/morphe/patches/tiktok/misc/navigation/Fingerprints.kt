@@ -4,11 +4,10 @@ import app.morphe.patcher.Fingerprint
 
 internal object HomeTabAbilityListFingerprint : Fingerprint(
     returnType = "Ljava/util/List;",
-    parameters = listOf("Z"),
     custom = { method, classDef ->
         classDef.endsWith("/TabAbilityAssem;") &&
             method.returnType == "Ljava/util/List;" &&
-            method.parameterTypes == listOf("Z")
+            method.parameterTypes.isEmpty()
     },
 )
 

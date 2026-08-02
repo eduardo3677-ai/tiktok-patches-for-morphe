@@ -182,17 +182,14 @@ internal object MultiCommentTranslationStartFingerprint : Fingerprint(
 
 internal object BaseCommentCellBindFingerprint : Fingerprint(
     definingClass = "Lcom/ss/android/ugc/aweme/commentv2/commentlist/powercell/BaseCommentCell;",
-    name = "g7",
     returnType = "V",
-    parameters = listOf("LX/0srE;"),
     custom = { method, _ ->
-        method.implementation?.instructions?.any { instruction ->
-            instruction.getReference<FieldReference>()?.let { reference ->
-                reference.definingClass == "LX/0QMJ;" &&
-                    reference.name == "LLILZ" &&
-                    reference.type == "LX/0QML;"
+        method.parameterTypes.isNotEmpty() &&
+            method.implementation?.instructions?.any { instruction ->
+                instruction.getReference<FieldReference>()?.let { reference ->
+                    reference.definingClass == "Lcom/ss/android/ugc/aweme/commentv2/commentlist/powercell/BaseCommentCell;"
+                } == true
             } == true
-        } == true
     },
 )
 

@@ -20,7 +20,6 @@ internal object GetEnterFromFingerprint : Fingerprint(
 )
 
 internal object OnRenderFirstFrameFingerprint : Fingerprint(
-    definingClass = "/BaseListFragmentPanel;",
     strings = listOf("method_enable_viewpager_preload_duration"),
 )
 

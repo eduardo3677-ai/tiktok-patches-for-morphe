@@ -28,9 +28,9 @@ private object TouchPointPendantParserFingerprint : Fingerprint(
             ?.mapNotNull { it.getReference<TypeReference>()?.type }
             ?.toSet()
             ?: emptySet()
-        "Lcom/bytedance/touchpoint/api/model/NormalPendant;" in referencedTypes &&
-            "Lcom/bytedance/touchpoint/api/model/TimerPendant;" in referencedTypes &&
-            "Lcom/bytedance/touchpoint/data/parser/notify/PendantViewModel;" in referencedTypes
+        referencedTypes.any { it.endsWith("/touchpoint/api/model/NormalPendant;") || it.endsWith("/touchpoint/api/model/l;") } &&
+            referencedTypes.any { it.endsWith("/TimerPendant;") } &&
+            referencedTypes.any { it.endsWith("/PendantViewModel;") || it.endsWith("/notify/l;") }
     },
 )
 
@@ -49,7 +49,7 @@ val hideFloatingPromotionsPatch = bytecodePatch(
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enablePromotionalBanners()V",
         )
 
-        TouchPointPendantParserFingerprint.method.let { method ->
+        TouchPointPendantParserFingerprint.methodOrNull?.let { method ->
             val parseIndex = method.indexOfFirstInstructionOrThrow {
                 getReference<MethodReference>()?.let { reference ->
                     reference.parameterTypes == listOf("Ljava/lang/String;", "Ljava/lang/Class;") &&

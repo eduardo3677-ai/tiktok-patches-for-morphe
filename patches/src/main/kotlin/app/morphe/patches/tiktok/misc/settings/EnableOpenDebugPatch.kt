@@ -141,7 +141,7 @@ val enableOpenDebugPatch = bytecodePatch(
                 val instruction = insn as? Instruction35c ?: return@firstNotNullOfOrNull null
                 val ref = instruction.reference as? MethodReference
                     ?: return@firstNotNullOfOrNull null
-                if (!ref.definingClass.startsWith("Lkotlin/jvm/internal/AwS")) return@firstNotNullOfOrNull null
+                if (!ref.definingClass.startsWith("Lkotlin/jvm/internal/AyS")) return@firstNotNullOfOrNull null
                 if (ref.parameterTypes != listOf(openDebugStateClass, "Landroid/content/Context;", "I")) {
                     return@firstNotNullOfOrNull null
                 }
@@ -197,7 +197,7 @@ val enableOpenDebugPatch = bytecodePatch(
                 if (insn.opcode != Opcode.INVOKE_DIRECT) return@firstNotNullOfOrNull null
                 val ref = (insn as? ReferenceInstruction)?.reference as? MethodReference
                     ?: return@firstNotNullOfOrNull null
-                if (!ref.definingClass.startsWith("Lkotlin/jvm/internal/AwS")) return@firstNotNullOfOrNull null
+                if (!ref.definingClass.startsWith("Lkotlin/jvm/internal/AyS")) return@firstNotNullOfOrNull null
                 if (ref.parameterTypes.firstOrNull() != openDebugVmClass) return@firstNotNullOfOrNull null
                 ref.definingClass
             } ?: throw PatchException(

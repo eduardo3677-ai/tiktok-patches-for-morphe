@@ -33,22 +33,25 @@ val playbackSpeedPatch = bytecodePatch(
             val matches = mutableListOf<String>()
             classDefForEach { classDef ->
                 for (method in classDef.methods) {
-                    if (method.name != "LJ") continue
                     if (method.returnType != "V") continue
-                    if (method.parameterTypes != listOf(
-                            "Ljava/lang/String;",
-                            "Lcom/ss/android/ugc/aweme/feed/model/Aweme;",
-                            "F",
-                            "Ljava/lang/String;",
-                        )
-                    ) continue
+                    val params = method.parameterTypes
+                    if (!params.contains("Lcom/ss/android/ugc/aweme/feed/model/Aweme;")) continue
+                    if (!params.contains("F")) continue
+                    if (method.name.startsWith("<init>")) continue
+
+                    val awemeIdx = params.indexOfFirst { it == "Lcom/ss/android/ugc/aweme/feed/model/Aweme;" }
+                    val floatIdx = params.indexOfFirst { it == "F" }
+                    if (floatIdx <= awemeIdx) continue
+
+                    val hasLongParam = params.any { it == "J" }
+                    if (hasLongParam) continue
 
                     matches += buildString {
                         append(method.definingClass)
                         append("->")
                         append(method.name)
                         append("(")
-                        method.parameterTypes.forEach { append(it) }
+                        params.forEach { append(it) }
                         append(")")
                         append(method.returnType)
                     }
@@ -56,6 +59,7 @@ val playbackSpeedPatch = bytecodePatch(
             }
 
             return matches.singleOrNull()
+                ?: matches.firstOrNull { it.contains("LJJ(") && it.contains("Aweme;F") }
                 ?: throw PatchException("Playback speed: expected one set-speed method, found ${matches.size}: $matches")
         }
 

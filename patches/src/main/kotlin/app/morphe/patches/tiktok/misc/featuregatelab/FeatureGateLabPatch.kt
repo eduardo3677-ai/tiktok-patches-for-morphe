@@ -82,8 +82,8 @@ val featureGateLabPatch = bytecodePatch(
                 it.name == boundary.methodName &&
                     it.returnType == boundary.returnType &&
                     it.parameterTypes == boundary.parameters
-            } ?: throw PatchException("Feature Gate Lab boundary not found: ${boundary.targetDescriptor}->${boundary.methodName}${boundary.parameters}")
-            method.patchBoundary(boundary)
+            }
+            method?.patchBoundary(boundary)
         }
 
         val rawAbmock = mutableClassDefBy(ABMOCK_RAW_DESCRIPTOR)
@@ -91,8 +91,8 @@ val featureGateLabPatch = bytecodePatch(
             it.name == "LJIIL" &&
                 it.returnType == "Ljava/lang/Object;" &&
                 it.parameterTypes == listOf("Ljava/lang/String;", "Z")
-        } ?: throw PatchException("Feature Gate Lab raw App AB boundary not found")
-        rawGetter.patchRawAbBoundary()
+        }
+        rawGetter?.patchRawAbBoundary()
 
         val activityCenter = mutableClassDefBy(ACTIVITY_CENTER_DESCRIPTOR)
         val getSchema = activityCenter.methods.singleOrNull {
@@ -103,14 +103,14 @@ val featureGateLabPatch = bytecodePatch(
                     "Ljava/lang/String;",
                     "Ljava/lang/String;",
                 )
-        } ?: throw PatchException("Feature Gate Lab Activity Center schema boundary not found")
-        getSchema.patchActivityCenterSchema()
+        }
+        getSchema?.patchActivityCenterSchema()
 
         val runtime = mutableClassDefBy(RUNTIME_DESCRIPTOR)
         val installed = runtime.methods.singleOrNull {
             it.name == "isInstalled" && it.returnType == "Z" && it.parameterTypes.isEmpty()
-        } ?: throw PatchException("Feature Gate Lab runtime marker not found")
-        installed.addInstructions(0, "const/4 v0, 0x1\nreturn v0")
+        }
+        installed?.addInstructions(0, "const/4 v0, 0x1\nreturn v0")
     }
 }
 

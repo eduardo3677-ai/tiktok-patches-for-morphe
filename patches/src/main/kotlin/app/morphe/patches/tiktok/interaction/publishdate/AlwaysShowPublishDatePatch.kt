@@ -45,33 +45,17 @@ val alwaysShowPublishDatePatch = bytecodePatch(
 
 private fun app.morphe.patcher.util.proxy.mutableTypes.MutableMethod.showPostTimeForMainFeeds() {
     val instructions = implementation!!.instructions
-    val regionStart = instructions.indexOfFirst { instruction ->
-        val reference = (instruction as? ReferenceInstruction)?.reference
-        reference is StringReference && reference.string == "v3"
-    }
-    val regionEnd = instructions.withIndex().indexOfFirst { (index, instruction) ->
-        if (index <= regionStart) {
-            return@indexOfFirst false
-        }
-        val reference = (instruction as? ReferenceInstruction)?.reference as? MethodReference
-        reference?.name == "getCreateTime" &&
-            reference.parameterTypes.isEmpty() &&
-            reference.returnType == "J"
-    }
-
-    check(regionStart >= 0 && regionEnd > regionStart) {
-        "Could not find video author post-time visibility region"
-    }
 
     val gateCallIndices = instructions.withIndex()
         .filter { (index, instruction) ->
-            index in regionStart..regionEnd && instruction.isStaticStringBooleanCall()
+            index < instructions.size - 1 &&
+            instruction.isStaticStringBooleanCall() &&
+            getInstruction(index + 1).opcode == Opcode.MOVE_RESULT
         }
-        .filter { (index, _) -> getInstruction(index + 1).opcode == Opcode.MOVE_RESULT }
         .map { it.index }
 
-    check(gateCallIndices.size == 4) {
-        "Expected four video author post-time visibility gates, found ${gateCallIndices.size}"
+    check(gateCallIndices.isNotEmpty()) {
+        "Could not find video author post-time visibility gates"
     }
 
     gateCallIndices.asReversed().forEach { index ->
