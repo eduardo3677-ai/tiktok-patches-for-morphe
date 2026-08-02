@@ -6,11 +6,11 @@ pluginManagement {
         gradlePluginPortal()
         google()
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/MorpheApp/registry")
+            name = "MavenCentral"
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
             credentials {
-                username = providers.gradleProperty("gpr.user").getOrElse(System.getenv("GITHUB_ACTOR"))
-                password = providers.gradleProperty("gpr.key").getOrElse(System.getenv("GITHUB_TOKEN"))
+                username = System.getenv("MAVEN_CENTRAL_USERNAME") ?: ""
+                password = System.getenv("MAVEN_CENTRAL_PASSWORD") ?: ""
             }
         }
         // Obtain baksmali/smali from source builds - https://github.com/iBotPeaches/smali

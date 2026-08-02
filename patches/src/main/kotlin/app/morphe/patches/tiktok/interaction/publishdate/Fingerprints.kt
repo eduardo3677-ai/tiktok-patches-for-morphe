@@ -1,7 +1,7 @@
 /*
  * Thanks to lyyako for the original implementation and help with this patch.
  *
- * TikTok 43.8.3 adaptation:
+ * TikTok 46.2.15 adaptation:
  * https://github.com/icysymmetra/tiktok-patches-for-morphe
  */
 package app.morphe.patches.tiktok.interaction.publishdate

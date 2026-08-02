@@ -3,7 +3,7 @@ group = "app.morphe"
 patches {
     about {
         name = "TikTok Patches for Morphe"
-        description = "A Morphe patch source for TikTok 43.8.3."
+        description = "A Morphe patch source for TikTok 46.2.15."
         source = "https://github.com/icysymmetra/tiktok-patches-for-morphe"
         author = "icysymmetra"
         contact = "na"

@@ -26,7 +26,7 @@ val playbackSpeedPatch = bytecodePatch(
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok46215())
 
     execute {
         fun resolveSetPlaybackSpeedMethod(): String {
@@ -94,7 +94,7 @@ val playbackSpeedPatch = bytecodePatch(
             """,
         )
 
-        // Kept in Morphe: supported on 43.8.3.
+        // Kept in Morphe: supported on 46.2.15.
     }
 }
 

@@ -3,15 +3,21 @@ package app.morphe.patches.tiktok.misc.navigation
 import app.morphe.patcher.Fingerprint
 
 internal object HomeTabAbilityListFingerprint : Fingerprint(
-    definingClass = "/TabAbilityAssem;",
-    name = "eT1",
     returnType = "Ljava/util/List;",
     parameters = listOf("Z"),
+    custom = { method, classDef ->
+        classDef.endsWith("/TabAbilityAssem;") &&
+            method.returnType == "Ljava/util/List;" &&
+            method.parameterTypes == listOf("Z")
+    },
 )
 
 internal object BottomTabBuildListFingerprint : Fingerprint(
-    definingClass = "/0tBq;",
-    name = "LJJL",
     returnType = "V",
     parameters = listOf("Ljava/util/List;"),
+    custom = { method, classDef ->
+        classDef.type == "LX/0tBq;" &&
+            method.returnType == "V" &&
+            method.parameterTypes == listOf("Ljava/util/List;")
+    },
 )

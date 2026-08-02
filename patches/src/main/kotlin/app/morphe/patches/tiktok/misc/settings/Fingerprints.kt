@@ -38,8 +38,7 @@ internal object SettingsStatusLoadFingerprint : Fingerprint(
 internal object SettingsComposeRowsFingerprint : Fingerprint(
     custom = { method, classDef ->
         classDef.endsWith("/SettingsComposeRvmpFragment;") &&
-            method.name == "XN" &&
-            method.parameterTypes.size == 8
+            method.parameterTypes.size >= 8
     },
 )
 

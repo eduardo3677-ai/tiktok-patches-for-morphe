@@ -26,15 +26,19 @@ internal object FollowFeedFingerprint : Fingerprint(
 )
 
 internal object TakoAiFeedButtonSetVisibleFingerprint : Fingerprint(
-    definingClass = "/feed/assem/tikbot/TakoAssem;",
-    name = "rn",
     returnType = "V",
     parameters = listOf("Z"),
+    custom = { method, classDef ->
+        classDef.endsWith("/feed/assem/tikbot/TakoAssem;") &&
+            method.implementation?.instructions?.any { it.opcode == com.android.tools.smali.dexlib2.Opcode.AND_INT_LIT8 } == true
+    },
 )
 
 internal object TakoAiFeedButtonBindFingerprint : Fingerprint(
-    definingClass = "/feed/assem/tikbot/TakoAssem;",
-    name = "rm",
     returnType = "V",
     parameters = listOf("Landroid/view/View;"),
+    custom = { method, classDef ->
+        classDef.endsWith("/feed/assem/tikbot/TakoAssem;") &&
+            method.accessFlags and com.android.tools.smali.dexlib2.AccessFlags.STATIC.value.toInt() != 0
+    },
 )

@@ -19,7 +19,7 @@ private const val ABMOCK_RAW_DESCRIPTOR = "LX/0BPb;"
 private const val ABMOCK_LEGACY_DESCRIPTOR = "LX/0BP8;"
 private const val ABMOCK_SETTINGS_MANAGER_DESCRIPTOR = "Lcom/bytedance/ies/abmock/SettingsManager;"
 private const val LIVE_SETTINGS_DESCRIPTOR = "Lcom/bytedance/android/live_settings/SettingsManager;"
-private const val ACTIVITY_CENTER_DESCRIPTOR = "Lcom/ss/android/ugc/aweme/compliance/business/activitycenter/EnterActivityCenterAction;"
+private const val ACTIVITY_CENTER_DESCRIPTOR = "Lcom/ss/android/ugc/tiktok/pns/activitycenter/EnterActivityCenterAction;"
 private const val VE_CONFIG_DESCRIPTOR = "Lcom/ss/android/vesdk/VEConfigCenter;"
 private const val RUNTIME_DESCRIPTOR = "Lapp/morphe/extension/tiktok/featuregatelab/FeatureGateLabRuntime;"
 
@@ -73,7 +73,7 @@ val featureGateLabPatch = bytecodePatch(
     default = true,
 ) {
     dependsOn(settingsPatch, enableOpenDebugPatch)
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok46215())
 
     execute {
         boundaries.forEach { boundary ->

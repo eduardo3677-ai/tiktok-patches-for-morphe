@@ -27,7 +27,7 @@ val longPressSpeedLockPatch = bytecodePatch(
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok46215())
 
     execute {
         SettingsStatusLoadFingerprint.method.addInstruction(
