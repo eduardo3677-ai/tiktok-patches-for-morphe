@@ -16,7 +16,7 @@ public class SpoofSimPatch {
             return false;
         }
 
-        Logger.printException(() -> "Context is not yet set, cannot spoof: " + fieldSpoofed, null);
+        Logger.printDebug(() -> "Context not yet set, skipping spoof for: " + fieldSpoofed);
         return true;
     }
 

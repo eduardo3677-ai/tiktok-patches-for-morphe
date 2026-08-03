@@ -20,6 +20,6 @@ internal object GetEnterFromFingerprint : Fingerprint(
 )
 
 internal object OnRenderFirstFrameFingerprint : Fingerprint(
-    strings = listOf("method_enable_viewpager_preload_duration"),
+    strings = listOf("[onRenderFirstFrame]"),
 )
 
