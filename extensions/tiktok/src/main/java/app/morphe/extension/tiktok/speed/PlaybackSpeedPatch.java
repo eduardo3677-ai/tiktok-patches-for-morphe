@@ -1,14 +1,14 @@
 package app.morphe.extension.tiktok.speed;
 
-import android.os.Handler;
-import android.os.Looper;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 import app.morphe.extension.shared.Logger;
 import app.morphe.extension.tiktok.settings.Settings;
 
 public final class PlaybackSpeedPatch {
     private static volatile float rememberedSpeed = 1.0f;
-    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     private PlaybackSpeedPatch() {}
 
@@ -29,13 +29,15 @@ public final class PlaybackSpeedPatch {
     }
 
     @SuppressWarnings("unused")
-    public static void applyPlaybackSpeed(final Object panel, final Object enterFrom) {
-        mainHandler.post(() -> {
+    public static void applyPlaybackSpeed(final Object panel) {
+        executor.execute(() -> {
             try {
                 float speed = getPlaybackSpeed();
-                Class<?> panelClass = panel.getClass();
-                Class<?> awemeClass = Class.forName("com.ss.android.ugc.aweme.feed.model.Aweme");
-                java.lang.reflect.Method getAweme = panelClass.getMethod("LJIIIIZZ");
+
+                java.lang.reflect.Method getEnterFrom = panel.getClass().getMethod("S7", boolean.class);
+                Object enterFrom = getEnterFrom.invoke(panel, true);
+
+                java.lang.reflect.Method getAweme = panel.getClass().getMethod("LJIIIIZZ");
                 Object aweme = getAweme.invoke(panel);
                 if (aweme == null) return;
 

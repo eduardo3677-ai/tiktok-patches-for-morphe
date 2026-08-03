@@ -79,18 +79,7 @@ val playbackSpeedPatch = bytecodePatch(
         OnRenderFirstFrameFingerprint.method.addInstructions(
             0,
             """
-                const/4 v0, 0x1
-                invoke-virtual { p0, v0 }, ${GetEnterFromFingerprint.originalMethod}
-                move-result-object v0
-
-                invoke-virtual { p0 }, Lcom/ss/android/ugc/aweme/feed/panel/BaseListFragmentPanel;->LJIIIIZZ()Lcom/ss/android/ugc/aweme/feed/model/Aweme;
-                move-result-object v1
-                if-eqz v1, :morphe_skip_set_speed
-
-                invoke-static { p0, v0 }, Lapp/morphe/extension/tiktok/speed/PlaybackSpeedPatch;->applyPlaybackSpeed(Ljava/lang/Object;Ljava/lang/Object;)V
-
-                :morphe_skip_set_speed
-                nop
+                invoke-static { p0 }, Lapp/morphe/extension/tiktok/speed/PlaybackSpeedPatch;->applyPlaybackSpeed(Ljava/lang/Object;)V
             """,
         )
 
