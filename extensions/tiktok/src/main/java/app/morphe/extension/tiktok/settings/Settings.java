@@ -89,4 +89,5 @@ public class Settings extends BaseSettings {
     public static final StringSetting SIMSPOOF_MCCMNC = new StringSetting("simspoof_mccmnc", "310260");
     public static final StringSetting SIMSPOOF_OP_NAME = new StringSetting("simspoof_op_name", "T-Mobile");
     public static final BooleanSetting GHOST_MODE = new BooleanSetting("ghost_mode", FALSE, true);
+    public static final StringSetting VIDEO_QUALITY = new StringSetting("video_quality", "auto", true);
 }

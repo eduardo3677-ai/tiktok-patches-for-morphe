@@ -28,9 +28,16 @@ private object TouchPointPendantParserFingerprint : Fingerprint(
             ?.mapNotNull { it.getReference<TypeReference>()?.type }
             ?.toSet()
             ?: emptySet()
-        referencedTypes.any { it.endsWith("/touchpoint/api/model/NormalPendant;") || it.endsWith("/touchpoint/api/model/l;") } &&
-            referencedTypes.any { it.endsWith("/TimerPendant;") } &&
-            referencedTypes.any { it.endsWith("/PendantViewModel;") || it.endsWith("/notify/l;") }
+        val hasNormalPendant = referencedTypes.any {
+            it.endsWith("/touchpoint/api/model/NormalPendant;") || it.endsWith("/touchpoint/api/model/l;")
+        }
+        val hasTimerPendant = referencedTypes.any {
+            it.endsWith("/TimerPendant;") || it.endsWith("/touchpoint/api/model/l;")
+        }
+        val hasPendantViewModel = referencedTypes.any {
+            it.endsWith("/PendantViewModel;") || it.endsWith("/notify/l;")
+        }
+        hasNormalPendant && hasTimerPendant && hasPendantViewModel
     },
 )
 

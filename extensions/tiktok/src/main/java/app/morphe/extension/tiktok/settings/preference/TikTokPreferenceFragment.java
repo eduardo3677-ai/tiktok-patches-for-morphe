@@ -30,6 +30,7 @@ import app.morphe.extension.tiktok.settings.preference.categories.FeatureGateLab
 import app.morphe.extension.tiktok.settings.preference.categories.GhostModePreferenceCategory;
 import app.morphe.extension.tiktok.settings.preference.categories.InterfacePreferenceCategory;
 import app.morphe.extension.tiktok.settings.preference.categories.SimSpoofPreferenceCategory;
+import app.morphe.extension.tiktok.settings.preference.categories.VideoQualityPreferenceCategory;
 
 @SuppressWarnings("deprecation")
 public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
@@ -159,6 +160,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         new FeedFilterPreferenceCategory(context, preferenceScreen);
         new FeedNavigationPreferenceCategory(context, preferenceScreen);
         new GhostModePreferenceCategory(context, preferenceScreen);
+        new VideoQualityPreferenceCategory(context, preferenceScreen);
         new InterfacePreferenceCategory(context, preferenceScreen);
         new CommentsPreferenceCategory(context, preferenceScreen);
         new DownloadsPreferenceCategory(context, preferenceScreen);

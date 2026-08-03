@@ -5,7 +5,7 @@ import app.morphe.patcher.Fingerprint
 internal object StoryApiReportViewedFingerprint : Fingerprint(
     custom = { method, classDef ->
         classDef.endsWith("/StoryApi;") &&
-            method.name == "reportStoryViewed"
+            (method.name == "reportStoryViewed" || method.name == "reportUserInteraction" || method.name == "reportStoryReveal")
     },
 )
 

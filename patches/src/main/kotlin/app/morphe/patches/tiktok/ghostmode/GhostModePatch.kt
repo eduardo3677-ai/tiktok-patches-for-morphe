@@ -27,19 +27,21 @@ val ghostModePatch = bytecodePatch(
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enableGhostMode()V",
         )
 
-        // Story view: return null if ghost mode is on (blocks /tiktok/story/view/report/v1)
-        StoryApiReportViewedFingerprint.methodOrNull?.addInstructionsWithLabels(
-            0,
-            """
-                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockStoryView()Z
-                move-result v0
-                if-eqz v0, :morphe_ghost_story_off
-                const/4 v0, 0x0
-                return-object v0
-                :morphe_ghost_story_off
-                nop
-            """,
-        )
+        // Story view + interaction + reveal: return null if ghost mode is on
+        StoryApiReportViewedFingerprint.matchAll().forEach { match ->
+            match.method.addInstructionsWithLabels(
+                0,
+                """
+                    invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockStoryView()Z
+                    move-result v0
+                    if-eqz v0, :morphe_ghost_story_off
+                    const/4 v0, 0x0
+                    return-object v0
+                    :morphe_ghost_story_off
+                    nop
+                """,
+            )
+        }
 
         // Profile view: return null if ghost mode is on (blocks /tiktok/user/profile/view_record/add/v1)
         ProfileViewerApiReportViewFingerprint.methodOrNull?.addInstructionsWithLabels(
@@ -56,17 +58,19 @@ val ghostModePatch = bytecodePatch(
         )
 
         // Typing indicator: return early if ghost mode is on
-        TypingStatusSenderFingerprint.methodOrNull?.addInstructionsWithLabels(
-            0,
-            """
-                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockTypingStatus()Z
-                move-result v0
-                if-eqz v0, :morphe_ghost_typing_off
-                return-void
-                :morphe_ghost_typing_off
-                nop
-            """,
-        )
+        TypingStatusSenderFingerprint.matchAll().forEach { match ->
+            match.method.addInstructionsWithLabels(
+                0,
+                """
+                    invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockTypingStatus()Z
+                    move-result v0
+                    if-eqz v0, :morphe_ghost_typing_off
+                    return-void
+                    :morphe_ghost_typing_off
+                    nop
+                """,
+            )
+        }
 
         // Presence: return early if ghost mode is on (prevents online status initialization)
         ActivityStatusInitFingerprint.methodOrNull?.addInstructionsWithLabels(

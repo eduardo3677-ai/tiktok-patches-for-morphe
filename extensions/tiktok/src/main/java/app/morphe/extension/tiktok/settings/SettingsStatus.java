@@ -17,6 +17,7 @@ public class SettingsStatus {
     public static boolean externalBrowserEnabled = false;
     public static boolean alwaysShowPublishDateEnabled = false;
     public static boolean ghostModeEnabled = false;
+    public static boolean videoQualityEnabled = false;
 
     public static void enableFeedFilter() {
         feedFilterEnabled = true;
@@ -60,6 +61,10 @@ public class SettingsStatus {
 
     public static void enableGhostMode() {
         ghostModeEnabled = true;
+    }
+
+    public static void enableVideoQuality() {
+        videoQualityEnabled = true;
     }
 
     public static void load() {
