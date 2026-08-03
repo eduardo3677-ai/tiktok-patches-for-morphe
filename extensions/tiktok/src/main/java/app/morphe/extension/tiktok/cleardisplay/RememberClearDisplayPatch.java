@@ -12,6 +12,7 @@ import app.morphe.extension.tiktok.settings.Settings;
 @SuppressWarnings("unused")
 public class RememberClearDisplayPatch {
     private static volatile Boolean lastLoggedState;
+    private static final android.os.Handler mainHandler = new android.os.Handler(android.os.Looper.getMainLooper());
 
     public static boolean getClearDisplayState() {
         boolean state = Settings.CLEAR_DISPLAY.get();
@@ -28,6 +29,26 @@ public class RememberClearDisplayPatch {
             Logger.printInfo(() -> "[Morphe ClearDisplay] remember state " + oldState + " -> " + newState);
         }
         Settings.CLEAR_DISPLAY.save(newState);
+    }
+
+    @SuppressWarnings("unused")
+    public static void applyClearDisplayIfNeeded(final Object panel) {
+        if (!getClearDisplayState()) return;
+
+        mainHandler.post(() -> {
+            try {
+                java.lang.reflect.Method getEnterFrom = panel.getClass().getMethod("getEnterFrom", boolean.class);
+                Object enterFrom = getEnterFrom.invoke(panel, true);
+
+                Class<?> eventClass = Class.forName("com.ss.android.ugc.feed.platform.panel.clearmode.ClearModePanelComponent$ClearDisplayEvent");
+                java.lang.reflect.Constructor<?> constructor = eventClass.getConstructor(boolean.class, int.class, String.class, String.class);
+                Object event = constructor.newInstance(true, 0, "", "long_press");
+                java.lang.reflect.Method post = eventClass.getMethod("post");
+                post.invoke(event);
+            } catch (Throwable e) {
+                Logger.printDebug(() -> "applyClearDisplayIfNeeded failed: " + e.getMessage());
+            }
+        });
     }
 }
 

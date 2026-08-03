@@ -38,24 +38,20 @@ val rememberClearDisplayPatch = bytecodePatch(
                     "Lapp/morphe/extension/tiktok/cleardisplay/RememberClearDisplayPatch;->rememberClearDisplayState(Z)V",
             )
 
-            val clearDisplayEventClass = method.parameters[0].type
+            val clearDisplayEventClass = "LX/0PRd;"
             OnRenderFirstFrameFingerprint.method.addInstructions(
                 0,
                 """
                     invoke-static {}, Lapp/morphe/extension/tiktok/cleardisplay/RememberClearDisplayPatch;->getClearDisplayState()Z
                     move-result v1
-
-                    if-eqz v1, :clear_display_disabled
-
+                    if-eqz v1, :morphe_clear_display_skip
                     const/4 v2, 0x0
                     const-string v3, ""
                     const-string v4, "long_press"
-
                     new-instance v0, $clearDisplayEventClass
                     invoke-direct {v0, v1, v2, v3, v4}, $clearDisplayEventClass-><init>(ZILjava/lang/String;Ljava/lang/String;)V
                     invoke-virtual {v0}, $clearDisplayEventClass->post()Lcom/ss/android/ugc/governance/eventbus/IEvent;
-
-                    :clear_display_disabled
+                    :morphe_clear_display_skip
                     nop
                 """,
             )

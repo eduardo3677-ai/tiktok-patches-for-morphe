@@ -87,11 +87,7 @@ val playbackSpeedPatch = bytecodePatch(
                 move-result-object v1
                 if-eqz v1, :morphe_skip_set_speed
 
-                invoke-static {}, Lapp/morphe/extension/tiktok/speed/PlaybackSpeedPatch;->getPlaybackSpeed()F
-                move-result v2
-
-                const/4 v3, 0x0
-                invoke-static { v0, v1, v2, v3 }, $setPlaybackSpeedMethod
+                invoke-static { p0, v0 }, Lapp/morphe/extension/tiktok/speed/PlaybackSpeedPatch;->applyPlaybackSpeed(Ljava/lang/Object;Ljava/lang/Object;)V
 
                 :morphe_skip_set_speed
                 nop
