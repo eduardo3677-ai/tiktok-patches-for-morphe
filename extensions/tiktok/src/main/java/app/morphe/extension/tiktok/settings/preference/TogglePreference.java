@@ -1,13 +1,9 @@
-/*
- * Forked from:
- * https://github.com/ReVanced/revanced-patches/blob/377d4e15016296b45d809697f7f69bce74badd3a/extensions/tiktok/src/main/java/app/revanced/extension/tiktok/settings/preference/TogglePreference.java
- */
-
 package app.morphe.extension.tiktok.settings.preference;
 
 import android.content.Context;
 import android.preference.SwitchPreference;
 import android.view.View;
+import android.widget.Switch;
 
 import app.morphe.extension.shared.settings.BooleanSetting;
 import app.morphe.extension.tiktok.Utils;
@@ -27,7 +23,20 @@ public class TogglePreference extends SwitchPreference {
     protected void onBindView(View view) {
         super.onBindView(view);
 
+        view.setBackground(SettingsUi.roundedSurface(getContext(), 0, false));
+        view.setMinimumHeight(SettingsUi.dp(getContext(), 64));
+        view.setPadding(
+                SettingsUi.dp(getContext(), 20),
+                SettingsUi.dp(getContext(), 14),
+                SettingsUi.dp(getContext(), 16),
+                SettingsUi.dp(getContext(), 14)
+        );
+
         Utils.setTitleAndSummaryColor(view);
+
+        Switch switchWidget = view.findViewById(android.R.id.switch_widget);
+        if (switchWidget != null) {
+            SettingsUi.styleSwitch(switchWidget);
+        }
     }
 }
-

@@ -135,8 +135,6 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         final var context = getActivity();
         activeFragment = this;
 
-        // Currently no resources can be compiled for TikTok (fails with aapt error).
-        // So all TikTok Strings are hard coded in the extension.
         restartDialogTitle = "Restart required";
         restartDialogMessage = "Restart the app for this change to take effect.";
         restartDialogButtonText = "Restart";
@@ -144,21 +142,40 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
 
         Utils.setIsDarkModeEnabled(isDarkModeEnabled(context));
 
+        android.view.View rootView = getView();
+        if (rootView != null) {
+            android.widget.ListView listView = rootView.findViewById(android.R.id.list);
+            if (listView != null) {
+                listView.setBackgroundColor(SettingsUi.background());
+                listView.setDivider(new android.graphics.drawable.ColorDrawable(SettingsUi.divider()));
+                listView.setDividerHeight(SettingsUi.dp(context, 1));
+                listView.setPadding(0, SettingsUi.dp(context, 8), 0, SettingsUi.dp(context, 8));
+            }
+        }
+
         PreferenceScreen preferenceScreen = getPreferenceManager().createPreferenceScreen(context);
         setPreferenceScreen(preferenceScreen);
 
-        // Custom categories reference app specific Settings class.
         new FeedFilterPreferenceCategory(context, preferenceScreen);
         new FeedNavigationPreferenceCategory(context, preferenceScreen);
+        new GhostModePreferenceCategory(context, preferenceScreen);
         new InterfacePreferenceCategory(context, preferenceScreen);
         new CommentsPreferenceCategory(context, preferenceScreen);
         new DownloadsPreferenceCategory(context, preferenceScreen);
         new SimSpoofPreferenceCategory(context, preferenceScreen);
         new ExtensionPreferenceCategory(context, preferenceScreen);
         new FeatureGateLabPreferenceCategory(context, preferenceScreen);
-        new GhostModePreferenceCategory(context, preferenceScreen);
         preferenceScreen.addPreference(new MorpheTikTokAboutPreference(context));
         new DebugPreferenceCategory(context, preferenceScreen);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        android.content.Context ctx = getActivity();
+        if (ctx != null) {
+            Utils.setIsDarkModeEnabled(isDarkModeEnabled(ctx));
+        }
     }
 
     @Override
