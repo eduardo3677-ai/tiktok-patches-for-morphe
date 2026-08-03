@@ -27,6 +27,7 @@ import app.morphe.extension.tiktok.settings.preference.categories.ExtensionPrefe
 import app.morphe.extension.tiktok.settings.preference.categories.FeedFilterPreferenceCategory;
 import app.morphe.extension.tiktok.settings.preference.categories.FeedNavigationPreferenceCategory;
 import app.morphe.extension.tiktok.settings.preference.categories.FeatureGateLabPreferenceCategory;
+import app.morphe.extension.tiktok.settings.preference.categories.GhostModePreferenceCategory;
 import app.morphe.extension.tiktok.settings.preference.categories.InterfacePreferenceCategory;
 import app.morphe.extension.tiktok.settings.preference.categories.SimSpoofPreferenceCategory;
 
@@ -155,6 +156,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         new SimSpoofPreferenceCategory(context, preferenceScreen);
         new ExtensionPreferenceCategory(context, preferenceScreen);
         new FeatureGateLabPreferenceCategory(context, preferenceScreen);
+        new GhostModePreferenceCategory(context, preferenceScreen);
         preferenceScreen.addPreference(new MorpheTikTokAboutPreference(context));
         new DebugPreferenceCategory(context, preferenceScreen);
     }

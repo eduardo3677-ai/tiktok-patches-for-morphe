@@ -1,12 +1,13 @@
 package app.morphe.patches.tiktok.ghostmode
 
-import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
-import app.morphe.patches.shared.compat.AppCompatibilities
+import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
+import app.morphe.patcher.extensions.InstructionExtensions.addInstructionsWithLabels
+import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.patch.bytecodePatch
+import app.morphe.patcher.util.smali.ExternalLabel
+import app.morphe.patches.shared.compat.AppCompatibilities
 import app.morphe.patches.tiktok.misc.extension.sharedExtensionPatch
 import app.morphe.patches.tiktok.misc.settings.SettingsStatusLoadFingerprint
-import app.morphe.patcher.extensions.InstructionExtensions.addInstruction
-import app.morphe.util.returnEarly
 
 private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/ghostmode/GhostMode;"
 
@@ -26,28 +27,57 @@ val ghostModePatch = bytecodePatch(
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enableGhostMode()V",
         )
 
-        StoryApiReportViewedFingerprint.methodOrNull?.addInstructions(
+        // Story view: return null if ghost mode is on (blocks /tiktok/story/view/report/v1)
+        StoryApiReportViewedFingerprint.methodOrNull?.addInstructionsWithLabels(
             0,
             """
+                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockStoryView()Z
+                move-result v0
+                if-eqz v0, :morphe_ghost_story_off
                 const/4 v0, 0x0
                 return-object v0
+                :morphe_ghost_story_off
+                nop
             """,
         )
 
-        ProfileViewerApiReportViewFingerprint.methodOrNull?.addInstructions(
+        // Profile view: return null if ghost mode is on (blocks /tiktok/user/profile/view_record/add/v1)
+        ProfileViewerApiReportViewFingerprint.methodOrNull?.addInstructionsWithLabels(
             0,
             """
+                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockProfileView()Z
+                move-result v0
+                if-eqz v0, :morphe_ghost_profile_off
                 const/4 v0, 0x0
                 return-object v0
+                :morphe_ghost_profile_off
+                nop
             """,
         )
 
-        TypingStatusSenderFingerprint.methodOrNull?.returnEarly()
-
-        ActivityStatusInitFingerprint.methodOrNull?.addInstructions(
+        // Typing indicator: return early if ghost mode is on
+        TypingStatusSenderFingerprint.methodOrNull?.addInstructionsWithLabels(
             0,
             """
-                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->forceOfflinePresence()V
+                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockTypingStatus()Z
+                move-result v0
+                if-eqz v0, :morphe_ghost_typing_off
+                return-void
+                :morphe_ghost_typing_off
+                nop
+            """,
+        )
+
+        // Presence: return early if ghost mode is on (prevents online status initialization)
+        ActivityStatusInitFingerprint.methodOrNull?.addInstructionsWithLabels(
+            0,
+            """
+                invoke-static {}, $EXTENSION_CLASS_DESCRIPTOR->shouldBlockPresence()Z
+                move-result v0
+                if-eqz v0, :morphe_ghost_presence_off
+                return-void
+                :morphe_ghost_presence_off
+                nop
             """,
         )
     }
