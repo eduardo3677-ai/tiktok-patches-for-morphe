@@ -16,6 +16,7 @@ public class SettingsStatus {
     public static boolean longPressSpeedLockEnabled = false;
     public static boolean externalBrowserEnabled = false;
     public static boolean alwaysShowPublishDateEnabled = false;
+    public static boolean ghostModeEnabled = false;
 
     public static void enableFeedFilter() {
         feedFilterEnabled = true;
@@ -55,6 +56,10 @@ public class SettingsStatus {
 
     public static void enableAlwaysShowPublishDate() {
         alwaysShowPublishDateEnabled = true;
+    }
+
+    public static void enableGhostMode() {
+        ghostModeEnabled = true;
     }
 
     public static void load() {

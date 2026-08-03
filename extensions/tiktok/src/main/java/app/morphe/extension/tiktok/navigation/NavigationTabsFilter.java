@@ -20,6 +20,11 @@ public final class NavigationTabsFilter {
     }
 
     @SuppressWarnings({"unused", "rawtypes", "unchecked"})
+    public static List<?> filterTopTabs(List<?> tabs) {
+        return filterTopTabs(tabs, false);
+    }
+
+    @SuppressWarnings({"unused", "rawtypes", "unchecked"})
     public static List<?> filterTopTabs(List<?> tabs, boolean includeChildren) {
         try {
             if (tabs == null || includeChildren) {
