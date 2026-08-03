@@ -83,7 +83,7 @@ val playbackSpeedPatch = bytecodePatch(
                 invoke-virtual { p0, v0 }, ${GetEnterFromFingerprint.originalMethod}
                 move-result-object v0
 
-                invoke-virtual { p0 }, Lcom/ss/android/ugc/aweme/feed/panel/BaseListFragmentPanel;->getCurrentAweme()Lcom/ss/android/ugc/aweme/feed/model/Aweme;
+                invoke-virtual { p0 }, Lcom/ss/android/ugc/aweme/feed/panel/BaseListFragmentPanel;->LJIIIIZZ()Lcom/ss/android/ugc/aweme/feed/model/Aweme;
                 move-result-object v1
                 if-eqz v1, :morphe_skip_set_speed
 
