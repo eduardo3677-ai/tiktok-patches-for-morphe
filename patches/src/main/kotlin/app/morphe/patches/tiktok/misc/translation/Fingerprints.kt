@@ -33,9 +33,7 @@ internal object CommentTranslationReevaluateFingerprint : Fingerprint(
     returnType = "V",
     parameters = emptyList(),
     strings = listOf(
-        "reEvaluateTranslationState requestType:",
-        ", shouldTranslate:",
-        ", overrideStatus:",
+        "reEvaluateTranslationState currentState:",
     ),
 )
 

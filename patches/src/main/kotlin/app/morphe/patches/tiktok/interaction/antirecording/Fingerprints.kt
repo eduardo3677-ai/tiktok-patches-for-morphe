@@ -5,7 +5,6 @@ import app.morphe.patcher.Fingerprint
 private fun antiRecordingFingerprint(marker: String) = Fingerprint(
     returnType = "V",
     parameters = listOf("I"),
-    strings = listOf(marker),
     custom = { method, _ ->
         method.definingClass.endsWith("/ClearModePanelComponent;")
     },
